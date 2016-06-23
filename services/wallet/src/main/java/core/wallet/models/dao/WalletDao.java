@@ -15,8 +15,12 @@ import java.util.List;
 public interface WalletDao extends CrudRepository<Wallet, BigInteger> {
 
 
-        List<Wallet> findAllByCountry(String fk_country) throws Exception;
+        List<Wallet> findAllByfkCountry(String fk_country) throws Exception;
 
-        List<Wallet> findAllByCurrency(Currency fk_currency) throws Exception;
+        List<Wallet> findAllByfkCurrency(Currency fk_currency) throws Exception;
+
+       // List<Wallet> findAllByFkCountryAndFkCurrency(String fk_country, Currency fk_currency) throws Exception;
+
+
 
 }

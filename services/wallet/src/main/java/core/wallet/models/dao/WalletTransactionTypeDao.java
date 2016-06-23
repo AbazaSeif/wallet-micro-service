@@ -12,9 +12,6 @@ import java.util.List;
 
 
 @Transactional(rollbackOn = Exception.class)
-public interface WalletTransactionTypeDao extends CrudRepository<WalletTransactionType, Integer> {
-
-    List<WalletTransactionType> findByName(String name) throws Exception;
-
+public interface WalletTransactionTypeDao extends CrudRepository<WalletTransactionType, String> {
 
 }

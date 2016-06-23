@@ -3,20 +3,22 @@ package core.wallet.models.entities;
 import com.google.gson.GsonBuilder;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "currency")
 public class Currency {
 
     @Id
-    @Column(name = "id", unique = true, nullable = false)
+    @Column(name = "id")
     private String id;
 
     @Column(name = "creation_date_time", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
+    @NotNull
     private Date creation_date_time;
-
 
     public Currency() {
     }

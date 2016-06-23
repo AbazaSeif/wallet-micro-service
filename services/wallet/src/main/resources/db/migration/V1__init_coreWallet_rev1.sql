@@ -11,7 +11,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema core_wallet
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `core_wallet` DEFAULT CHARACTER SET utf8 ;
+-- CREATE SCHEMA IF NOT EXISTS `core_wallet` DEFAULT CHARACTER SET utf8 ;
 USE `core_wallet` ;
 
 -- -----------------------------------------------------
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `core_wallet`.`currency` (
 -- Table `core_wallet`.`wallet`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `core_wallet`.`wallet` (
-  `id` BIGINT NOT NULL,
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
   `balance` DECIMAL(20,2) NOT NULL,
   `creation_date_time` TIMESTAMP NOT NULL,
   `fk_country` VARCHAR(2) NOT NULL,
@@ -47,8 +47,9 @@ CREATE TABLE IF NOT EXISTS `core_wallet`.`wallet` (
 -- Table `core_wallet`.`wallet_transaction_type`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `core_wallet`.`wallet_transaction_type` (
-  `id` INT NOT NULL,
-  `name` VARCHAR(100) NOT NULL COMMENT 'Withdraw,\ndirect debit',
+  `id` VARCHAR(50) NOT NULL,
+  `creation_date_time` TIMESTAMP NOT NULL,
+  `additional_information` JSON NULL,
   PRIMARY KEY (`id`))
   ENGINE = InnoDB;
 
@@ -57,14 +58,14 @@ CREATE TABLE IF NOT EXISTS `core_wallet`.`wallet_transaction_type` (
 -- Table `core_wallet`.`wallet_transaction`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `core_wallet`.`wallet_transaction` (
-  `id` BIGINT NOT NULL,
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
   `fk_wallet_source` BIGINT NOT NULL,
   `fk_wallet_dest` BIGINT NOT NULL,
   `amount` DECIMAL(20,2) NOT NULL,
   `reference` LONGTEXT NOT NULL,
   `description` LONGTEXT NULL,
   `creation_date_time` TIMESTAMP NOT NULL,
-  `fk_transaction_type` INT NOT NULL,
+  `fk_transaction_type` VARCHAR(50) NOT NULL,
   `additional_information` JSON NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_wallet_transaction_wallet_idx` (`fk_wallet_source` ASC),

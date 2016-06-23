@@ -1,5 +1,7 @@
 package core.wallet.models.entities;
 
+import com.google.gson.GsonBuilder;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -10,24 +12,41 @@ import java.util.Date;
 @Table(name = "wallet")
 public class Wallet {
     @Id
-    @Column(name = "id",unique = true,nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id",nullable = false)
+    @GeneratedValue
     private BigInteger id;
 
     @Column(name = "balance",nullable = false)
+    @NotNull
     private BigDecimal balance;
 
     @Column(name = "creation_date_time",nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date creation_date_time;
+    @NotNull
+    private Date creationDateTime;
 
     @Column(name = "fk_country",nullable = false)
-    private String fk_country;
+    @NotNull
+    private String fkCountry;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY,targetEntity = Currency.class)
-    @JoinColumn(name = "fk_currency",referencedColumnName = "id")
-    private Currency fk_currency;
+    @OneToOne
+    @JoinColumn(name = "fk_currency")
+    private Currency fkCurrency;
+
+    public Wallet() {
+    }
+
+    public Wallet(BigInteger id) {
+        this.id = id;
+    }
+
+    public Wallet(BigDecimal balance, String fkCountry, Currency fkCurrency) {
+        this.balance = balance;
+        this.fkCountry = fkCountry;
+        this.fkCurrency = fkCurrency;
+        creationDateTime = new Date();
+    }
 
     public BigInteger getId() {
         return id;
@@ -45,27 +64,32 @@ public class Wallet {
         this.balance = balance;
     }
 
-    public Date getCreation_date_time() {
-        return creation_date_time;
+    public Date getCreationDateTime() {
+        return creationDateTime;
     }
 
-    public void setCreation_date_time(Date creation_date_time) {
-        this.creation_date_time = creation_date_time;
+    public void setCreationDateTime(Date creationDateTime) {
+        this.creationDateTime = creationDateTime;
     }
 
-    public String getFk_country() {
-        return fk_country;
+    public String getFkCountry() {
+        return fkCountry;
     }
 
-    public void setFk_country(String fk_country) {
-        this.fk_country = fk_country;
+    public void setFkCountry(String fkCountry) {
+        this.fkCountry = fkCountry;
     }
 
-    public Currency getFk_currency() {
-        return fk_currency;
+    public Currency getFkCurrency() {
+        return fkCurrency;
     }
 
-    public void setFk_currency(Currency fk_currency) {
-        this.fk_currency = fk_currency;
+    public void setFkCurrency(Currency fkCurrency) {
+        this.fkCurrency = fkCurrency;
+    }
+
+    @Override
+    public String toString(){
+        return new GsonBuilder().create().toJson(this);
     }
 }

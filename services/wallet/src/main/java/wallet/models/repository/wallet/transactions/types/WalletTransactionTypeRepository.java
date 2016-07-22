@@ -1,4 +1,4 @@
-package wallet.models.repository.wallets.transactions.types;
+package wallet.models.repository.wallet.transactions.types;
 
 import wallet.models.entities.WalletTransactionType;
 import wallet.exceptions.WalletException;

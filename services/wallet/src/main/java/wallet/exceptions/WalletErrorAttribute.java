@@ -12,6 +12,9 @@ import java.util.Map;
 @Component
 public class WalletErrorAttribute extends DefaultErrorAttributes {
 
+    private final String MESSAGE_KEY = "message";
+    private final String THROWABLE_KEY = "throwable";
+
     @Override
     public Map<String, Object> getErrorAttributes(
             RequestAttributes requestAttributes,
@@ -19,8 +22,8 @@ public class WalletErrorAttribute extends DefaultErrorAttributes {
         Map<String, Object> errorAttributes = super.getErrorAttributes(requestAttributes, includeStackTrace);
         Throwable error = getError(requestAttributes);
         if (error instanceof WalletException) {
-            errorAttributes.put("message", ((WalletException) error).getUserMessage());
-            errorAttributes.put("throwable", error.getMessage());
+            errorAttributes.put(MESSAGE_KEY, ((WalletException) error).getUserMessage());
+            errorAttributes.put(THROWABLE_KEY, error.getMessage());
         }
         return errorAttributes;
     }

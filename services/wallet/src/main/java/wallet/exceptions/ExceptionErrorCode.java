@@ -3,7 +3,7 @@ package wallet.exceptions;
 /**
  * Created by edgardneto on 6/27/16.
  */
-public enum ErrorCode {
+public enum ExceptionErrorCode {
 
     // General errors
     None(1000000),
@@ -15,6 +15,7 @@ public enum ErrorCode {
     RemoteError(2000002),
     TryLater(2000003),
     MalformedResponse(2000004),
+    MalformedJSON(2000005),
 
     // Invalid input errors
     InvalidInput(3000000),
@@ -34,6 +35,7 @@ public enum ErrorCode {
     FieldTooLong(3000014),
     EntityNotFound(3000100),
     FieldsInvalid(3000101),
+    JwtCreation(3000102),
 
    //Verification errors
     VerificationProcessExpired(5000004),
@@ -64,6 +66,7 @@ public enum ErrorCode {
 
     VerificationAttemptLimitReached(50000025),
     VerificationAttemptFailed(50000026),
+    WalletTransactionTypeIdAlreadyExists(50000027),
 
 
     // Wallet service errors
@@ -83,7 +86,7 @@ public enum ErrorCode {
 
     private int errorNumber;
 
-    ErrorCode(int errorNumber) {
+    ExceptionErrorCode(int errorNumber) {
         this.errorNumber = errorNumber;
     }
 
@@ -91,8 +94,8 @@ public enum ErrorCode {
         return errorNumber;
     }
 
-    public static ErrorCode fromErrorNumber(int errorNumber) {
-        for (final ErrorCode errorCode : values()) {
+    public static ExceptionErrorCode fromErrorNumber(int errorNumber) {
+        for (final ExceptionErrorCode errorCode : values()) {
             if (errorCode.errorNumber == errorNumber) {
                 return errorCode;
             }

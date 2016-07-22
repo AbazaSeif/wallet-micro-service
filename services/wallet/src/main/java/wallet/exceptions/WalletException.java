@@ -7,7 +7,7 @@ public class WalletException extends Exception  {
 
     private static final long serialVersionUID = 1997753363232807009L;
 
-    private ErrorCode errorCode;
+    private ExceptionErrorCode errorCode;
 
     private String userMessage;
 
@@ -23,30 +23,30 @@ public class WalletException extends Exception  {
         super(cause);
     }
 
-    public WalletException(String message, ErrorCode errorCode) {
+    public WalletException(String message, ExceptionErrorCode errorCode) {
         super(message);
         this.errorCode = errorCode;
     }
 
-    public WalletException(ErrorCode errorCode, Throwable cause) {
+    public WalletException(ExceptionErrorCode errorCode, Throwable cause) {
         super(cause);
         this.errorCode = errorCode;
     }
 
-    public WalletException(String message, ErrorCode errorCode, Throwable cause) {
+    public WalletException(String message, ExceptionErrorCode errorCode, Throwable cause) {
         super(message, cause);
     }
 
-    public WalletException(String message,String userMessage, ErrorCode errorCode, Throwable cause) {
+    public WalletException(String message, String userMessage, ExceptionErrorCode errorCode, Throwable cause) {
         this(message,errorCode ,cause);
         this.userMessage=userMessage;
     }
 
-    public ErrorCode getErrorCode() {
+    public ExceptionErrorCode getErrorCode() {
         return errorCode;
     }
 
-    public void setErrorCode(ErrorCode errorCode) {
+    public void setErrorCode(ExceptionErrorCode errorCode) {
         this.errorCode = errorCode;
     }
 
